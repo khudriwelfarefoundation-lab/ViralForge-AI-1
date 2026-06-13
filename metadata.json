@@ -1,0 +1,6 @@
+{
+  "name": "ViralForge AI",
+  "description": "All-in-one AI video generation studio and social media automation platform with a sleek timeline editor, bulk social media account manager, and campaign Forge.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
