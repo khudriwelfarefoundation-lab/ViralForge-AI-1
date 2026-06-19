@@ -6,9 +6,10 @@ interface HeaderSettingsProps {
   currentTier: 'Free' | 'Pro' | 'VIP' | 'Unlimited';
   onOpenBilling: () => void;
   onSignOut?: () => void;
+  onReturnToWebsite?: () => void;
 }
 
-export default function HeaderSettings({ userEmail, currentTier, onOpenBilling, onSignOut }: HeaderSettingsProps) {
+export default function HeaderSettings({ userEmail, currentTier, onOpenBilling, onSignOut, onReturnToWebsite }: HeaderSettingsProps) {
   const [showSettings, setShowSettings] = useState(false);
   const [status, setStatus] = useState({ status: 'checking', aiStatus: 'checking', message: '' });
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -45,6 +46,15 @@ export default function HeaderSettings({ userEmail, currentTier, onOpenBilling, 
         </div>
 
         <div className="flex items-center space-x-3.5">
+          {onReturnToWebsite && (
+            <button
+              onClick={onReturnToWebsite}
+              className="flex items-center space-x-1.5 rounded-full border border-violet-500/35 bg-violet-600/10 hover:bg-violet-600/20 py-1.5 px-3 text-xs text-violet-300 font-bold transition duration-250 cursor-pointer uppercase tracking-wider"
+            >
+              <span>🏠 Public Website</span>
+            </button>
+          )}
+
           {/* Host Health */}
           <div 
             onClick={fetchStatus}

@@ -3,9 +3,10 @@ import { Sparkles, Mail, Lock, User, ShieldCheck, ArrowRight, Info, Library } fr
 
 interface AuthScreenProps {
   onLogin: (user: { email: string; name: string; role: 'admin' | 'user'; tier: 'Free' | 'Unlimited'; paymentStatus: 'none' | 'pending' | 'approved' | 'rejected' }) => void;
+  onClose?: () => void;
 }
 
-export default function AuthScreen({ onLogin }: AuthScreenProps) {
+export default function AuthScreen({ onLogin, onClose }: AuthScreenProps) {
   const [isSignUp, setIsSignUp] = useState(true);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -123,6 +124,16 @@ export default function AuthScreen({ onLogin }: AuthScreenProps) {
 
       <div className="w-full max-w-md bg-zinc-950/40 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-xl shadow-2xl relative z-10 transition-all duration-300">
         
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="mb-5 flex items-center gap-1.5 text-xs text-violet-400 hover:text-white transition duration-200 cursor-pointer font-bold font-mono uppercase"
+          >
+            <span>← Return to Public Website</span>
+          </button>
+        )}
+
         {/* Workspace Brand Hub */}
         <div className="text-center mb-8">
           <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-600 to-cyan-400 text-white text-2xl font-bold shadow-lg shadow-violet-500/20 mb-3">

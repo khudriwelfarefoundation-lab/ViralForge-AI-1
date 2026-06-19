@@ -18,6 +18,7 @@ import CampaignForge from './components/CampaignForge';
 import LibraryView from './components/LibraryView';
 import AnalyticsDashboard from './components/AnalyticsDashboard';
 import CheckoutModal from './components/CheckoutModal';
+import ProductWebsite from './components/ProductWebsite';
 
 import AuthScreen from './components/AuthScreen';
 import OwnerAdminPanel from './components/OwnerAdminPanel';
@@ -27,6 +28,8 @@ import { INITIAL_ACCOUNTS, INITIAL_VIDEOS } from './mockData';
 import { SocialAccount, VideoProject } from './types';
 
 export default function App() {
+  const [viewMode, setViewMode] = useState<'website' | 'workspace'>('website');
+  const [showAuthScreen, setShowAuthScreen] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>('create');
   
   // Pricing/Monetization state control
@@ -272,9 +275,52 @@ export default function App() {
     saveTickets([newTicket, ...tickets]);
   };
 
-  // Redirect to sign up screen if no active session
-  if (!currentUser) {
-    return <AuthScreen onLogin={handleLogin} />;
+  // Decide whether to show AuthScreen selection or product website
+  const isGuest = !currentUser;
+
+  if (showAuthScreen || (viewMode === 'workspace' && isGuest)) {
+    return (
+      <AuthScreen 
+        onLogin={(user) => {
+          handleLogin(user);
+          setViewMode('workspace');
+          setShowAuthScreen(false);
+        }} 
+        onClose={() => {
+          setShowAuthScreen(false);
+          setViewMode('website');
+        }}
+      />
+    );
+  }
+
+  // Otherwise, if viewMode is website, render the brand product landing page
+  if (viewMode === 'website') {
+    return (
+      <ProductWebsite 
+        currentUser={currentUser}
+        currentTier={currentUser ? (currentUser.tier || 'Free') : 'Free'}
+        onLaunchWorkspace={() => {
+          if (currentUser) {
+            setViewMode('workspace');
+          } else {
+            setShowAuthScreen(true);
+          }
+        }}
+        onOpenCheckout={() => {
+          if (currentUser) {
+            setShowCheckoutModal(true);
+            setViewMode('workspace');
+          } else {
+            setShowAuthScreen(true);
+          }
+        }}
+        onTriggerLogin={() => {
+          setShowAuthScreen(true);
+        }}
+        onSignOut={handleSignOut}
+      />
+    );
   }
 
   // Active membership tier level
@@ -328,6 +374,7 @@ export default function App() {
         currentTier={currentTier}
         onOpenBilling={() => setShowCheckoutModal(true)}
         onSignOut={handleSignOut}
+        onReturnToWebsite={() => setViewMode('website')}
       />
 
       {/* Floating System Guidance Banner */}
