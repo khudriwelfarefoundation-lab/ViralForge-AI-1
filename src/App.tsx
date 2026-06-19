@@ -426,133 +426,59 @@ export default function App() {
         />
       )}
 
-      {/* Main Structural body: Desktop Sidebar Layout */}
-      <div className="flex-1 flex overflow-hidden">
+      {/* Main Unified Website-Style Studio Console Container */}
+      <div className="flex-1 overflow-y-auto bg-gradient-to-b from-[#0e0c1a] via-[#09080e] to-[#040306] px-4 py-8 md:px-12 md:py-10">
         
-        {/* Left Desktop Sidebar */}
-        <aside id="desktop-sidebar-rail" className="hidden lg:flex flex-col w-[280px] bg-[#0c0c14] border-r border-white/10 shrink-0 p-4 space-y-7 justify-between">
-          <div className="space-y-6">
-            <div className="px-3 flex justify-between items-center">
-              <span className="text-[10px] font-black tracking-widest text-violet-400 uppercase">
-                ⚙️ Operations Desk
-              </span>
-              {currentUser.role === 'admin' && (
-                <span className="text-[9.5px] bg-violet-600 text-white font-mono px-1 py-0.2 rounded font-black">
-                  OWNER
-                </span>
-              )}
-            </div>
-
-            <nav className="space-y-1 select-none text-left">
-              {navigationItems.map((item) => {
-                const isActive = activeTab === item.id;
-                return (
-                  <button
-                    key={item.id}
-                    id={`sidebar-tab-${item.id}`}
-                    onClick={() => setActiveTab(item.id)}
-                    className={`w-full text-left flex items-center justify-between px-3.5 py-3 rounded-xl transition duration-200 cursor-pointer ${
-                      isActive
-                        ? 'bg-gradient-to-r from-violet-600/35 to-cyan-500/10 text-white border-l-4 border-violet-500'
-                        : 'text-gray-400 hover:text-white hover:bg-white/5 border-l-4 border-transparent'
-                    }`}
-                  >
-                    <div className="flex items-center space-x-3.5">
-                      <span className={isActive ? 'text-violet-400' : 'text-gray-400'}>
-                        {item.icon}
-                      </span>
-                      <div>
-                        <p className="text-xs font-black tracking-wide leading-none">{item.label}</p>
-                        <p className="text-[10px] text-gray-500 font-medium leading-none mt-1">{item.desc}</p>
-                      </div>
-                    </div>
-
-                    {/* Numeric custom badges */}
-                    {item.badgeValue !== undefined && item.badgeValue > 0 && (
-                      <span className={`text-[9.5px] font-mono font-bold px-1.5 py-0.5 rounded border ${
-                        item.id === 'admin'
-                          ? 'bg-rose-955 border-rose-500/40 text-rose-300 animate-pulse font-extrabold'
-                          : 'bg-[#141424] border-white/5 text-gray-300'
-                      }`}>
-                        {item.badgeValue}
-                      </span>
-                    )}
-
-                    {/* Dynamic pulse highlight */}
-                    {item.highlightBadge && activeEditingVideo && (
-                      <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
-                    )}
-                  </button>
-                );
-              })}
-            </nav>
+        {/* Unified Top Glowing Operations Navigator Bar (Horizontal) */}
+        <div className="max-w-7xl mx-auto mb-8 text-center space-y-4">
+          <div className="inline-flex items-center gap-2 bg-[#1b192e] border border-violet-500/20 px-3.5 py-1.5 rounded-full text-[11px] font-mono font-bold text-violet-300 mx-auto select-none">
+            <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+            <span>VIRALFORGE AI CREATOR SUITE • ACTIVE OPERATIVE CONSOLE</span>
           </div>
-
-          {/* Sidebar visual footer */}
-          <div className="bg-gradient-to-tr from-[#12121e]/80 to-transparent p-4 rounded-xl border border-white/5 relative overflow-hidden text-left">
-            <div className="absolute top-0 right-0 h-10 w-10 bg-cyan-400/10 rounded-full blur-xl" />
-            <span className="text-[9px] font-bold text-violet-300 uppercase block tracking-wider">
-              Forge System Storage
-            </span>
-            <div className="flex justify-between text-[10px] text-gray-400 mt-1">
-              <span>Cloud Render Memory</span>
-              <span className="text-white font-mono">{currentTier === 'Unlimited' ? 'Unlimited (Lifetime ★)' : '1.2 GB / 2 GB Free'}</span>
-            </div>
-            {/* Progress line */}
-            <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden mt-1.5">
-              <div 
-                className="h-full bg-gradient-to-r from-violet-500 to-cyan-400" 
-                style={{ width: currentTier === 'Unlimited' ? '100%' : '60%' }}
-              ></div>
-            </div>
-          </div>
-        </aside>
-
-        {/* Center Canvas Container pane */}
-        <main className="flex-1 overflow-y-auto px-4 py-6 md:p-8 space-y-6">
           
-          {/* Mobile Hamburguer header link bar */}
-          <div className="lg:hidden flex items-center justify-between bg-white/5 p-3 rounded-2xl border border-white/10 mb-2">
-            <div className="flex items-center gap-2">
-              <span className="text-lg">⚡</span>
-              <span className="text-xs font-black uppercase tracking-wider text-white">ViralForge Navigator Office</span>
-            </div>
-
-            <button
-              onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-              className="p-1.5 bg-black/40 border border-white/10 rounded-lg text-white"
-            >
-              {mobileSidebarOpen ? <X className="h-4.5 w-4.5" /> : <Menu className="h-4.5 w-4.5" />}
-            </button>
+          {/* Horizontal navigation buttons */}
+          <div className="bg-[#12111d]/90 border border-white/10 rounded-2xl p-2.5 max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-1.5 shadow-2xl backdrop-blur-md">
+            {navigationItems.map((item) => {
+              const isActive = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  id={`horizontal-tab-${item.id}`}
+                  onClick={() => {
+                    setActiveTab(item.id);
+                  }}
+                  className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl transition duration-200 cursor-pointer ${
+                    isActive
+                      ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-extrabold shadow-lg shadow-violet-600/20'
+                      : 'text-gray-400 hover:text-white hover:bg-white/5 font-semibold text-xs'
+                  }`}
+                >
+                  <span className={isActive ? 'text-white' : 'text-gray-400'}>
+                    {item.icon}
+                  </span>
+                  <span className="text-[11.5px] uppercase font-mono tracking-wider">{item.label.split(' ')[0]}</span>
+                  
+                  {item.badgeValue !== undefined && item.badgeValue > 0 && (
+                    <span className={`text-[10px] font-mono font-black px-1.5 py-0.2 rounded border ${
+                      isActive 
+                        ? 'bg-black/40 border-white/10 text-white' 
+                        : 'bg-zinc-800 border-white/5 text-gray-300'
+                    }`}>
+                      {item.badgeValue}
+                    </span>
+                  )}
+                  
+                  {item.highlightBadge && activeEditingVideo && !isActive && (
+                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-ping" />
+                  )}
+                </button>
+              );
+            })}
           </div>
+        </div>
 
-          {/* Expandable Mobile Sidebar Drawer */}
-          {mobileSidebarOpen && (
-            <div className="lg:hidden p-4 rounded-2xl bg-[#0c0c14] border border-white/10 space-y-4 animate-fade-in relative z-20 text-left">
-              <span className="text-[10px] font-black uppercase text-gray-400">Jump to Workspace Desk</span>
-              <div className="grid grid-cols-2 gap-2">
-                {navigationItems.map(item => (
-                  <button
-                    key={item.id}
-                    onClick={() => {
-                      setActiveTab(item.id);
-                      setMobileSidebarOpen(false);
-                    }}
-                    className={`p-3 rounded-xl border flex items-center gap-2 text-left transition ${
-                      activeTab === item.id 
-                        ? 'border-violet-500 bg-violet-950/20 text-white' 
-                        : 'border-white/5 bg-black/40 text-gray-400'
-                    }`}
-                  >
-                    <span>{item.icon}</span>
-                    <span className="text-xs font-bold leading-none">{item.label.split(' ')[0]}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Active view selectors */}
+        {/* Content canvas container pane with full spacious desk rendering */}
+        <div id="workspace-stage-wrapper" className="max-w-7xl mx-auto pb-16 animate-fade-in text-left">
           <div className="animate-fade-in max-w-7xl mx-auto">
             {activeTab === 'create' && (
               <StudioCreate 
@@ -632,7 +558,7 @@ export default function App() {
             )}
 
           </div>
-        </main>
+        </div>
       </div>
 
       {/* Bottom bar Navigation specifically for mobile devices */}

@@ -33,15 +33,14 @@ export default function HeaderSettings({ userEmail, currentTier, onOpenBilling, 
 
   return (
     <>
-      <header className="sticky top-0 z-40 flex items-center justify-between border-b border-white/10 bg-[#0a0a0f]/80 px-6 py-4 backdrop-blur-xl">
-        <div className="flex items-center space-x-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-600 to-cyan-400 font-mono text-xl font-black text-white shadow-lg shadow-violet-500/20">
-            ⚡
+      <header className="sticky top-0 z-40 flex items-center justify-between border-b border-white/5 bg-[#0c0b15]/90 px-6 py-4 backdrop-blur-md">
+        <div className="flex items-center gap-2 cursor-pointer" onClick={onReturnToWebsite}>
+          <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-violet-500/10">
+            <Sparkles className="h-5 w-5 text-white" />
           </div>
-          <div>
-            <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-              ViralForge <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-sm font-extrabold text-transparent">AI STUDIO</span>
-            </h1>
+          <div className="text-left">
+            <span className="text-sm font-black text-white block uppercase tracking-wider leading-none">ViralForge AI</span>
+            <span className="text-[9.5px] font-mono text-violet-400 font-extrabold block mt-0.5 tracking-tight">OPERATIONS CONSOLE</span>
           </div>
         </div>
 
